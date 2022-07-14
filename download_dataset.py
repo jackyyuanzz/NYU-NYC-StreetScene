@@ -50,11 +50,16 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--video_id', type=int, default=None, help='Download a single video of this id')
     parser.add_argument('--save_dir', type=str, default="NYU_StreetScene", help='Directory to download the data to, create in current dir if not exist')
+    parser.add_argument('--bbox_only', action='store_true')
     
     opt = parser.parse_args()
     
     os.makedirs(opt.save_dir, exist_ok=True)
     
+    if opt.bbox_only:
+        print('Downloading Lables ...')
+        download_file_from_google_drive(Bounding_Box_ID, opt.save_dir+'/bounding_box_labels.zip')
+        exit()
     if opt.video_id == None:
         print('Download Starting for All Video Files...')
         for i in range(78, 87):
